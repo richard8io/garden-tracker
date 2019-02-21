@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+json = ActiveSupport::JSON.decode(File.read('db/seeds/users.json'))
+json.each do |record|
+  User.create!(record)
+end
+
+json = ActiveSupport::JSON.decode(File.read('db/seeds/beds.json'))
+json.each do |record|
+  Bed.create!(record)
+end
