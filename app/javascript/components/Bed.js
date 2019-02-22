@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import UserNotFound from './UserNotFound';
+import BedNotFound from './BedNotFound';
 
 const Bed = ({ bed, onDelete }) => {
-  if (!bed) return <UserNotFound />;
+  if (!bed) return <BedNotFound />;
 
   return (
     <div className="eventContainer">

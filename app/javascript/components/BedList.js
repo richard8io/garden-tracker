@@ -19,22 +19,20 @@ class BedList extends React.Component {
     this.setState({ searchTerm: this.searchInput.current.value });
   }
 
-  matchSearchTerm(obj) {
-    const {
-      id, published, created_at, updated_at, ...rest
-    } = obj;
+  // TODO: Apply multiple search fields when they are added to the model.
+  applySearchTerm(beds) {
     const { searchTerm } = this.state;
-
-    return Object.values(rest).some(
-      value => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1,
-    );
+    const filteredBeds = beds.filter((bed) => {
+      let bedName = bed.name.toLowerCase()
+      return bedName.indexOf(
+        searchTerm.toLowerCase()) !== -1
+    }).sort((a, b) => b.name - a.name);
+    return filteredBeds;
   }
 
   renderBeds() {
     const { activeId, beds } = this.props;
-    const filteredBeds = beds
-      .filter(el => this.matchSearchTerm(el))
-      .sort((a, b) => b.name - a.name);
+    const filteredBeds = this.applySearchTerm(beds);
 
     return filteredBeds.map(bed => (
       <li key={bed.id}>

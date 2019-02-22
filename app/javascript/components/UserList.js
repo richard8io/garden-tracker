@@ -19,29 +19,24 @@ class UserList extends React.Component {
     this.setState({ searchTerm: this.searchInput.current.value });
   }
 
-  matchSearchTerm(obj) {
-    const {
-      id, published, created_at, updated_at, ...rest
-    } = obj;
+  applySearchTerm(users) {
     const { searchTerm } = this.state;
-
-    return Object.values(rest).some(
-      value => value.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1,
-    );
+    const filteredUsers = users.filter((user) => {
+      let userLogin = user.login.toLowerCase()
+      return userLogin.indexOf(
+        searchTerm.toLowerCase()) !== -1
+    }).sort((a, b) => b.login - a.login);
+    return filteredUsers;
   }
 
   renderUsers() {
     const { activeId, users } = this.props;
-    const filteredUsers = users
-      .filter(el => this.matchSearchTerm(el))
-      .sort((a, b) => b.login - a.login);
+    const filteredUsers = this.applySearchTerm(users);
 
     return filteredUsers.map(user => (
       <li key={user.id}>
         <Link to={`/users/${user.id}`} className={activeId === user.id ? 'active' : ''}>
           {user.login}
-          {' - '}
-          {user.password}
         </Link>
       </li>
     ));

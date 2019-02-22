@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmptyObject, validateBed } from '../helpers/helpers';
 import { Link } from 'react-router-dom';
-// import UserNotFound from './UserNotFound';
+import BedNotFound from './BedNotFound';
 
 class BedForm extends React.Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class BedForm extends React.Component {
     const { bed } = this.state;
     const { path } = this.props;
 
-    if (!bed.id && path === '/beds/:id/edit') return <UserNotFound />;
+    if (!bed.id && path === '/beds/:id/edit') return <BedNotFound />;
 
     const cancelURL = bed.id ? `/beds/${bed.id}` : '/beds';
     const title = bed.id ? `${bed.name}` : 'New Name';
