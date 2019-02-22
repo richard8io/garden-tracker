@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import axios from 'axios';
 import Header from './Header';
@@ -11,7 +9,6 @@ import { Switch } from 'react-router-dom';
 import UserForm from './UserForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
-import Clock from './Clock';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -111,7 +108,6 @@ class Editor extends React.Component {
               onDelete={this.deleteUser}
             />
           </Switch>
-          <Clock />
         </div>
       </div>
     );
