@@ -4,14 +4,14 @@ export const isEmptyObject = obj => Object.keys(obj).length === 0;
 
 const isValidDate = dateObj => !Number.isNaN(Date.parse(dateObj));
 
-export const validateEvent = (event) => {
+export const validateUser = (user) => {
   const errors = {};
 
-  if (event.event_type === '') {
+  if (user.login === '') {
     errors.login = 'You must enter a login';
   }
 
-  if (event.password === '') {
+  if (user.password === '') {
     errors.password = 'You must enter a password';
   }
 

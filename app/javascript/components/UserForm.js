@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateEvent } from '../helpers/helpers';
+import { isEmptyObject, validateUser } from '../helpers/helpers';
 import { Link } from 'react-router-dom';
-import EventNotFound from './EventNotFound';
+import UserNotFound from './UserNotFound';
 
 class UserForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      event: props.event,
+      user: props.user,
       errors: {},
     };
 
@@ -19,42 +19,40 @@ class UserForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { event } = this.state;
-    const errors = validateEvent(event);
+    const { user } = this.state;
+    const errors = validateUser(user);
   
     if (!isEmptyObject(errors)) {
       this.setState({ errors });
     } else {
       const { onSubmit } = this.props;
-      onSubmit(event);
+      onSubmit(user);
     }
   }
 
-  componentWillReceiveProps({ event }) {
-    this.setState({ event });
+  componentWillReceiveProps({ user }) {
+    this.setState({ user });
   }  
 
-  updateEvent(key, value) {
+  updateUser(key, value) {
     this.setState(prevState => ({
-      event: {
-        ...prevState.event,
+      user: {
+        ...prevState.user,
         [key]: value,
       },
     }));
   }  
 
-  validateEvent(event) {
+  validateUser(user) {
     const errors = {};
 
-    if (event.event_type === '') {
+    if (user.login === '') {
       errors.login = 'You must enter a login';
     }
 
-    if (event.password === '') {
-      errors.event_date = 'You must enter a password';
+    if (user.password === '') {
+      errors.password = 'You must enter a password';
     }
-
-    console.log(event);
     return errors;
   }
 
@@ -62,11 +60,11 @@ class UserForm extends React.Component {
     return Object.keys(obj).length === 0;
   }
 
-  handleInputChange(event) {
-    const { target } = event;
+  handleInputChange(user) {
+    const { target } = user;
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.updateEvent(name, value);
+    this.updateUser(name, value);
   }
   
 
@@ -79,7 +77,7 @@ class UserForm extends React.Component {
 
     return (
       <div className="errors">
-        <h3>The following errors prohibited the event from being saved:</h3>
+        <h3>The following errors prohibited the user from being saved:</h3>
         <ul>
           {Object.values(errors).map(error => (
             <li key={error}>{error}</li>
@@ -90,13 +88,13 @@ class UserForm extends React.Component {
   }
 
   render() {
-    const { event } = this.state;
+    const { user } = this.state;
     const { path } = this.props;
 
-    if (!event.id && path === '/users/:id/edit') return <EventNotFound />;
+    if (!user.id && path === '/users/:id/edit') return <UserNotFound />;
 
-    const cancelURL = event.id ? `/events/${event.id}` : '/events';
-    const title = event.id ? `${event.event_date} - ${event.event_type}` : 'New Event';
+    const cancelURL = user.id ? `/users/${user.id}` : '/users';
+    const title = user.id ? `${user.login} - ${user.password}` : 'New Password';
 
     return (
       <div>
@@ -111,7 +109,7 @@ class UserForm extends React.Component {
                 id="login"
                 name="login"
                 onChange={this.handleInputChange}
-                value={event.login}
+                value={user.login}
               />
             </label>
           </div>
@@ -122,7 +120,7 @@ class UserForm extends React.Component {
                 type="password"
                 id="password"
                 name="password"
-                value={event.password}
+                value={user.password}
                 onChange={this.handleInputChange}
               />
             </label>
@@ -137,13 +135,13 @@ class UserForm extends React.Component {
 }
 
 UserForm.propTypes = {
-  event: PropTypes.shape(),
+  user: PropTypes.shape(),
   onSubmit: PropTypes.func.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 };
 
 UserForm.defaultProps = {
-  event: {
+  user: {
     login: '',
     password: ''
   },

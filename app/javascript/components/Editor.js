@@ -3,10 +3,10 @@
 import React from 'react';
 import axios from 'axios';
 import Header from './Header';
-import EventList from './EventList';
+import UserList from './UserList';
 import PropTypes from 'prop-types';
 import PropsRoute from './PropsRoute';
-import Event from './Event';
+import User from './User';
 import { Switch } from 'react-router-dom';
 import UserForm from './UserForm';
 import { success } from '../helpers/notifications';
@@ -14,68 +14,67 @@ import { handleAjaxError } from '../helpers/helpers';
 
 class Editor extends React.Component {
   constructor(props) {
-    console.log("testin");
     super(props);
 
     this.state = {
-      events: null,
+      users: null,
     };
 
-    this.addEvent = this.addEvent.bind(this);
-    this.deleteEvent = this.deleteEvent.bind(this);
-    this.updateEvent = this.updateEvent.bind(this);
+    this.addUser = this.addUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
 
   componentDidMount() {
     axios
       .get('/api/users.json')
-      .then(response => this.setState({ events: response.data }))
+      .then(response => this.setState({ users: response.data }))
       .catch(handleAjaxError);
   }
 
-  addEvent(newEvent) {
+  addUser(newUser) {
     axios
-      .post('/api/users.json', newEvent)
+      .post('/api/users.json', newUser)
       .then((response) => {
         success('User Added!');
-        const savedEvent = response.data;
+        const savedUser = response.data;
         this.setState(prevState => ({
-          events: [...prevState.events, savedEvent],
+          users: [...prevState.users, savedUser],
         }));
         const { history } = this.props;
-        history.push(`/users/${savedEvent.id}`);
+        history.push(`/users/${savedUser.id}`);
       })
       .catch(handleAjaxError);
   }
 
-  updateEvent(updatedEvent) {
+  updateUser(updatedUser) {
     axios
-      .put(`/api/users/${updatedEvent.id}.json`, updatedEvent)
+      .put(`/api/users/${updatedUser.id}.json`, updatedUser)
       .then(() => {
-        success('Event updated');
-        const { events } = this.state;
-        const idx = events.findIndex(event => event.id === updatedEvent.id);
-        events[idx] = updatedEvent;
+        success('User updated');
+        const { users } = this.state;
+        const idx = users.findIndex(user => user.id === updatedUser.id);
+        users[idx] = updatedUser;
         const { history } = this.props;
-        history.push(`/users/${updatedEvent.id}`);
-        this.setState({ events });
+        history.push(`/users/${updatedUser.id}`);
+        this.setState({ users });
       })
       .catch(handleAjaxError);
   }
 
-  deleteEvent(eventId) {
+  deleteUser(userId) {
     const sure = window.confirm('Are you sure?');
     if (sure) {
       axios
-        .delete(`/api/users/${eventId}.json`)
+        .delete(`/api/users/${userId}.json`)
         .then((response) => {
           if (response.status === 204) {
             success('User deleted');
             const { history } = this.props;
             history.push('/users');
 
-            const { events } = this.state;
-            this.setState({ events: events.filter(event => event.id !== eventId) });
+            const { users } = this.state;
+            this.setState({ users: users.filter(user => user.id !== userId) });
           }
         })
         .catch(handleAjaxError);
@@ -83,34 +82,32 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { events } = this.state;
-    if (events === null) return null;
+    const { users } = this.state;
+    if (users === null) return null;
 
     const { match } = this.props;
-    const eventId = match.params.id;
-    const event = events.find(e => e.id === Number(eventId));
-
-    console.log("one");
+    const userId = match.params.id;
+    const user = users.find(e => e.id === Number(userId));
 
     return (
       <div>
         <Header />
         <div className="grid">
-          <EventList events={events} activeId={Number(eventId)} />
+          <UserList users={users} activeId={Number(userId)} />
           <Switch>
-            <PropsRoute path="/users/new" component={UserForm} onSubmit={this.addEvent} />
+            <PropsRoute path="/users/new" component={UserForm} onSubmit={this.addUser} />
             <PropsRoute
               exact
               path="/users/:id/edit"
               component={UserForm}
-              event={event}
-              onSubmit={this.updateEvent}
+              user={user}
+              onSubmit={this.updateUser}
             />
             <PropsRoute
               path="/users/:id"
-              component={Event}
-              event={event}
-              onDelete={this.deleteEvent}
+              component={User}
+              user={user}
+              onDelete={this.deleteUser}
             />
           </Switch>
         </div>

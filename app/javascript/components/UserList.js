@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-class EventList extends React.Component {
+class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,18 +30,18 @@ class EventList extends React.Component {
     );
   }
 
-  renderEvents() {
-    const { activeId, events } = this.props;
-    const filteredEvents = events
+  renderUsers() {
+    const { activeId, users } = this.props;
+    const filteredUsers = users
       .filter(el => this.matchSearchTerm(el))
       .sort((a, b) => b.login - a.login);
 
-    return filteredEvents.map(event => (
-      <li key={event.id}>
-        <Link to={`/users/${event.id}`} className={activeId === event.id ? 'active' : ''}>
-          {event.login}
+    return filteredUsers.map(user => (
+      <li key={user.id}>
+        <Link to={`/users/${user.id}`} className={activeId === user.id ? 'active' : ''}>
+          {user.login}
           {' - '}
-          {event.password}
+          {user.password}
         </Link>
       </li>
     ));
@@ -63,21 +63,21 @@ class EventList extends React.Component {
           onKeyUp={this.updateSearchTerm}
         />
   
-        <ul>{this.renderEvents()}</ul>
+        <ul>{this.renderUsers()}</ul>
       </section>
     );
   }  
     
 }
 
-EventList.propTypes = {
+UserList.propTypes = {
   activeId: PropTypes.number,
-  events: PropTypes.arrayOf(PropTypes.object),
+  userss: PropTypes.arrayOf(PropTypes.object),
 };
 
-EventList.defaultProps = {
+UserList.defaultProps = {
   activeId: undefined,
-  events: [],
+  users: [],
 };
 
-export default EventList;
+export default UserList;
