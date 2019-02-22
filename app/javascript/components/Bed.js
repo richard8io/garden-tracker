@@ -21,6 +21,16 @@ const Bed = ({ bed, onDelete }) => {
           {' '}
           {bed.name}
         </li>
+        <li>
+          <strong>Rows:</strong>
+          {' '}
+          {bed.rows}
+        </li>
+        <li>
+          <strong>Columns:</strong>
+          {' '}
+          {bed.columns}
+        </li>
       </ul>
     </div>
   );
