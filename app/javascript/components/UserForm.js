@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
-// import EventNotFound from './EventNotFound';
+import { isEmptyObject, validateEvent } from '../helpers/helpers';
+import { Link } from 'react-router-dom';
+import EventNotFound from './EventNotFound';
 
-class LoginForm extends React.Component {
+class UserForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -92,7 +93,7 @@ class LoginForm extends React.Component {
     const { event } = this.state;
     const { path } = this.props;
 
-    // if (!event.id && path === '/events/:id/edit') return <EventNotFound />;
+    if (!event.id && path === '/users/:id/edit') return <EventNotFound />;
 
     const cancelURL = event.id ? `/events/${event.id}` : '/events';
     const title = event.id ? `${event.event_date} - ${event.event_type}` : 'New Event';
@@ -103,7 +104,7 @@ class LoginForm extends React.Component {
         {this.renderErrors()}
         <form className="eventForm" onSubmit={this.handleSubmit}>
           <div>
-            <label htmlFor="event_type">
+            <label htmlFor="login">
               <strong>Login:</strong>
               <input
                 type="text"
@@ -118,7 +119,7 @@ class LoginForm extends React.Component {
             <label htmlFor="password">
               <strong>Password:</strong>
               <input
-                type="text"
+                type="password"
                 id="password"
                 name="password"
                 value={event.password}
@@ -135,17 +136,17 @@ class LoginForm extends React.Component {
   } 
 }
 
-LoginForm.propTypes = {
+UserForm.propTypes = {
   event: PropTypes.shape(),
   onSubmit: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
 };
 
-LoginForm.defaultProps = {
+UserForm.defaultProps = {
   event: {
     login: '',
     password: ''
   },
 };
 
-export default LoginForm;
+export default UserForm;

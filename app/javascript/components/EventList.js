@@ -52,7 +52,7 @@ class EventList extends React.Component {
       <section className="eventList">
         <h2>
           Users
-          <Link to="/users/new">New Event</Link>
+          <Link to="/users/new">New User</Link>
         </h2>
   
         <input

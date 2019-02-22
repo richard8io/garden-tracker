@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import PropsRoute from './PropsRoute';
 import Event from './Event';
 import { Switch } from 'react-router-dom';
-import LoginForm from './LoginForm';
+import UserForm from './UserForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 
@@ -98,11 +98,11 @@ class Editor extends React.Component {
         <div className="grid">
           <EventList events={events} activeId={Number(eventId)} />
           <Switch>
-            <PropsRoute path="/users/new" component={LoginForm} onSubmit={this.addEvent} />
+            <PropsRoute path="/users/new" component={UserForm} onSubmit={this.addEvent} />
             <PropsRoute
               exact
               path="/users/:id/edit"
-              component={LoginForm}
+              component={UserForm}
               event={event}
               onSubmit={this.updateEvent}
             />
