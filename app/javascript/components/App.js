@@ -1,11 +1,15 @@
 import React from 'react';
-import Header from './Header';
-import LoginForm from './LoginForm';
+import { Route } from 'react-router-dom';
+import { Alert } from '../helpers/notifications';
+import Editor from './Editor';
+import './App.css';
+
+// ========================================
 
 const App = () => (
   <div>
-    <Header />
-    <LoginForm />
+    <Route path="/users/:id?" component={Editor} />
+    <Alert stack={ { limit: 3 } } />
   </div>
 );
 
