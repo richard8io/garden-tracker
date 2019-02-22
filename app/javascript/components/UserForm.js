@@ -41,19 +41,6 @@ class UserForm extends React.Component {
         [key]: value,
       },
     }));
-  }  
-
-  validateUser(user) {
-    const errors = {};
-
-    if (user.login === '') {
-      errors.login = 'You must enter a login';
-    }
-
-    if (user.password === '') {
-      errors.password = 'You must enter a password';
-    }
-    return errors;
   }
 
   isEmptyObject(obj) {

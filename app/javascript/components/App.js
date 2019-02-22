@@ -9,8 +9,8 @@ import Beds from './Beds';
 
 const App = () => (
   <div>
-    <Route path="/beds/index?" component={Beds} />
     <Route path="/users/:id?" component={Editor} />
+    <Route path="/beds/:id?" component={Beds} />
     <Alert stack={ { limit: 3 } } />
   </div>
 );

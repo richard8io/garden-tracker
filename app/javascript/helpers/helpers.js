@@ -18,6 +18,16 @@ export const validateUser = (user) => {
   return errors;
 }
 
+export const validateBed = (bed) => {
+  const errors = {};
+
+  if (bed.name === '') {
+    errors.name = 'You must enter a name';
+  }
+
+  return errors;
+}
+
 export const formatDate = (d) => {
   const YYYY = d.getFullYear();
   const MM = `0${d.getMonth() + 1}`.slice(-2);

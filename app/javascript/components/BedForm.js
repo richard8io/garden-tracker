@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateUser } from '../helpers/helpers';
+import { isEmptyObject, validateBed } from '../helpers/helpers';
 import { Link } from 'react-router-dom';
 // import UserNotFound from './UserNotFound';
 
@@ -34,23 +34,13 @@ class BedForm extends React.Component {
     this.setState({ bed });
   }  
 
-  updateUser(key, value) {
+  updateBed(key, value) {
     this.setState(prevState => ({
       bed: {
         ...prevState.bed,
         [key]: value,
       },
     }));
-  }  
-
-  validateBed(bed) {
-    const errors = {};
-
-    if (bed.name === '') {
-      errors.name = 'You must enter a name';
-    }
-
-    return errors;
   }
 
   isEmptyObject(obj) {
@@ -62,8 +52,7 @@ class BedForm extends React.Component {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.updateBed(name, value);
-  }
-  
+  }  
 
   renderErrors() {
     const { errors } = this.state;
@@ -88,9 +77,7 @@ class BedForm extends React.Component {
     const { bed } = this.state;
     const { path } = this.props;
 
-    console.log("BedForm.render()");
-    // TODO: configure.
-    // if (!bed.id && path === '/beds/:id/edit') return <UserNotFound />;
+    if (!bed.id && path === '/beds/:id/edit') return <UserNotFound />;
 
     const cancelURL = bed.id ? `/beds/${bed.id}` : '/beds';
     const title = bed.id ? `${bed.name}` : 'New Name';
