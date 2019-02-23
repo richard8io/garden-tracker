@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Header from './Header';
 import UserList from './UserList';
 import PropTypes from 'prop-types';
 import PropsRoute from './PropsRoute';
@@ -10,7 +9,7 @@ import UserForm from './UserForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
 
-class Editor extends React.Component {
+class Users extends React.Component {
   constructor(props) {
     super(props);
 
@@ -89,7 +88,6 @@ class Editor extends React.Component {
 
     return (
       <div>
-        <Header />
         <div className="grid">
           <UserList users={users} activeId={Number(userId)} />
           <Switch>
@@ -115,13 +113,13 @@ class Editor extends React.Component {
 }
 
 
-Editor.propTypes = {
+Users.propTypes = {
   match: PropTypes.shape(),
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
 };
 
-Editor.defaultProps = {
+Users.defaultProps = {
   match: undefined,
 };
 
-export default Editor;
+export default Users;

@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Header from './Header';
 import BedList from './BedList';
 import PropTypes from 'prop-types';
 import PropsRoute from './PropsRoute';
@@ -89,7 +88,6 @@ class Beds extends React.Component {
 
     return (
       <div>
-        <Header />
         <div className="grid">
           <BedList beds={beds} activeId={Number(bedId)} />
           <Switch>
