@@ -3,21 +3,36 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BedNotFound from './BedNotFound';
 
-const Sectors = ({ bed }) => (
-  // for (var i = 0; i < bed.rows; i++) {
-  //   lines.push("<div className='sector-grid'>");
-  //   for (var j = 0; j < bed.cols; j++) {
-  //     lines.push("<div className='grid-area'>x</div>");
-  //   }
-  //   lines.push("<div>");
-  // }
-  <div className="sector-grid">
-    <div className="grid-area">{bed.name}</div>
-    <div className="grid-area">Two</div>
-    <div className="grid-area">Three</div>
-    <div className="grid-area">Four</div>
-  </div>
-);
+class Sectors extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  renderRow(bed, rowID) {
+    var rows = [];
+    for (var i = 0; i < bed.columns; i++) {
+      rows.push(<td>cell-{rowID}-{i}</td>);
+    }
+    return rows;
+  }
+
+  renderRows(bed) {
+    var rows = [];
+    for (var i = 0; i < bed.rows; i++) {
+      rows.push(<tr>{this.renderRow(bed, i)}</tr>);
+    }
+    return rows;
+  }
+
+  render() {
+    const { bed } = this.props;
+    if (bed === null) return null;
+
+    var rows = [];
+    rows.push(<table>{this.renderRows(bed)}</table>);
+    return rows;
+  }
+}
 
 const Bed = ({ bed, onDelete }) => {
   if (!bed) return <BedNotFound />;
@@ -61,5 +76,13 @@ Bed.propTypes = {
 Bed.defaultProps = {
   bed: undefined
 };
+
+Sectors.propTypes = {
+  bed: PropTypes.shape()
+};
+
+// Sectors.defaultProps = {
+//   bed: undefined
+// };
 
 export default Bed;
