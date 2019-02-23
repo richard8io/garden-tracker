@@ -3,6 +3,22 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BedNotFound from './BedNotFound';
 
+const Sectors = ({ bed }) => (
+  // for (var i = 0; i < bed.rows; i++) {
+  //   lines.push("<div className='sector-grid'>");
+  //   for (var j = 0; j < bed.cols; j++) {
+  //     lines.push("<div className='grid-area'>x</div>");
+  //   }
+  //   lines.push("<div>");
+  // }
+  <div className="sector-grid">
+    <div className="grid-area">{bed.name}</div>
+    <div className="grid-area">Two</div>
+    <div className="grid-area">Three</div>
+    <div className="grid-area">Four</div>
+  </div>
+);
+
 const Bed = ({ bed, onDelete }) => {
   if (!bed) return <BedNotFound />;
 
@@ -32,6 +48,7 @@ const Bed = ({ bed, onDelete }) => {
           {bed.columns}
         </li>
       </ul>
+      <Sectors bed={bed} />
     </div>
   );
 };

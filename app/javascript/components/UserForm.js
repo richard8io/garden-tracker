@@ -54,7 +54,6 @@ class UserForm extends React.Component {
     this.updateUser(name, value);
   }
   
-
   renderErrors() {
     const { errors } = this.state;
 

@@ -34,7 +34,7 @@ header h1, header h1 a{
 header h1 a:hover {
   text-decoration: underline;
 }
-
+/* Grid ------------------------------------ */
 .grid {
   display: grid;
   grid-gap: 50px;
@@ -43,6 +43,27 @@ header h1 a:hover {
   width: 90%;
   height: calc(100vh - 145px);
 }
+
+.sector-grid {
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: 100px auto;
+  grid-template-rows: 100px auto;
+  margin: 25px auto;
+  width: 95%;
+  height: 600px;
+ }
+
+.grid-area {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #c1d798;
+  color: #fff;
+  padding: 50px 25px;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+/* End Grid ------------------------------------ */
 
 .eventList {
   background: #f6f6f6;

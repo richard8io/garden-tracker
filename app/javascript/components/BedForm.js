@@ -99,6 +99,30 @@ class BedForm extends React.Component {
               />
             </label>
           </div>
+          <div>
+            <label htmlFor="rows">
+              <strong>Rows:</strong>
+              <input
+                type="text"
+                id="rows"
+                name="rows"
+                onChange={this.handleInputChange}
+                value={bed.rows}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="columns">
+              <strong>Columns:</strong>
+              <input
+                type="text"
+                id="columns"
+                name="columns"
+                onChange={this.handleInputChange}
+                value={bed.columns}
+              />
+            </label>
+          </div>
           <div className="form-actions">
             <button type="submit">Enter</button>
           </div>
@@ -116,7 +140,9 @@ BedForm.propTypes = {
 
 BedForm.defaultProps = {
   bed: {
-    name: ''
+    name: '',
+    rows: '',
+    columns: ''
   },
 };
 

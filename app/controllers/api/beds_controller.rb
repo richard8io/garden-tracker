@@ -31,6 +31,8 @@ class Api::BedsController < ApplicationController
       :created_at,
       :updated_at,
       :name,
+      :rows,
+      :columns,
       :active
     )
   end
