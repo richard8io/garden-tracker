@@ -11,8 +11,14 @@ Rails.application.routes.draw do
   get 'beds/:id', to: 'site#index'
   get 'beds/:id/edit', to: 'site#index'
 
+  get 'sectors', to: 'site#index'
+  get 'sectors/new', to: 'site#index'
+  get 'sectors/:id', to: 'site#index'
+  get 'sectors/:id/edit', to: 'site#index'
+
   namespace :api do
     resources :users, only: %i[index show create destroy update]
     resources :beds, only: %i[index show create destroy update]
+    resources :sectors, only: %i[index show create destroy update]
   end
 end
