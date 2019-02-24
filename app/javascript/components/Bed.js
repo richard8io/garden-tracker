@@ -8,10 +8,15 @@ class Sectors extends React.Component {
     super(props);
   }
 
+  // TODO: We'll eventually want the ability to add information on each plant. A cell/sector table will need to be added.
+  operate() {
+    alert('x');
+  }
+
   renderRow(bed, rowID) {
     var rows = [];
     for (var i = 0; i < bed.columns; i++) {
-      rows.push(<td>cell-{rowID}-{i}</td>);
+      rows.push(<td><div className="sector" onClick={() => this.operate()}>cell-{rowID}-{i}</div></td>);
     }
     return rows;
   }
