@@ -79,14 +79,13 @@ class Sectors extends React.Component {
   // }
 
   render() {
-    console.log(1);
     const { sectors } = this.state;
     if (sectors === null) return null;
-    console.log(2);
+
     const { match } = this.props;
     const sectorId = match.params.id;
     const sector = sectors.find(e => e.id === Number(sectorId));
-    console.log(3);
+
     return (
       <div>
         <div className="grid">

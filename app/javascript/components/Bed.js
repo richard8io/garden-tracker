@@ -19,18 +19,38 @@ class Sectors extends React.Component {
   renderRows(bed) {
     var rows = [];
     for (var i = 1; i <= bed.rows; i++) {
-      rows.push(<tr>{this.renderRow(bed, i)}</tr>);
+      // rows.push(<tr>{this.renderRow(bed, i)}</tr>);
+      rows.push(<tr key="a{i}"><td key="x{i}">{i}</td></tr>);
     }
     return rows;
   }
 
-  render() {
+  // render() {
+  //   var rows = [];
+  //   rows.push(<table><tbody>{this.renderRows(bed)}</tbody></table>);
+  //   return rows;
+  // }
+  render () {
     const { bed } = this.props;
     if (bed === null) return null;
-
-    var rows = [];
-    rows.push(<table>{this.renderRows(bed)}</table>);
-    return rows;
+    return (
+      <div className={`wrapper${bed.rows}`}>
+        <div className="box">{bed.rows}</div>
+        <div className="box">2</div>
+        <div className="box">3</div>
+        <div className="box">4</div>
+        <div className="box">5</div>
+        <div className="box">6</div>
+        <div className="box">7</div>
+        <div className="box">8</div>
+        <div className="box">9</div>
+        <div className="box">10</div>
+        <div className="box">11</div>
+        <div className="box">12</div>
+        <div className="box">13</div>
+        <div className="box">14</div>
+      </div>
+    );
   }
 }
 
