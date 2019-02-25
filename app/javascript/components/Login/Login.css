@@ -1,0 +1,38 @@
+.login-wrapper {
+  width: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: [col] 33% [col] 33% [col] 33%;
+  grid-template-rows: [row] auto [row] ;
+  background-color: #fff;
+  color: #444;
+}
+
+.login-box {
+    background-color: #DBDBDB;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+}
+
+.login-a {
+  grid-column: col / span 3;
+  grid-row: row 1;
+}
+.login-b {
+  grid-column: col ;
+  grid-row: row 2 ;
+}
+.login-c {
+  grid-column: col 2;
+  grid-row: row 2 ;
+}
+.login-d {
+  grid-column: col 3;
+  grid-row: row 2 ;
+}
+.login-e {
+  grid-column: col / span 3;
+  grid-row: row 3;
+}

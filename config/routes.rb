@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root to: redirect('/beds')
+  root to: redirect('/login/new')
+
+  get 'login/new', to: 'site#index'
+  get 'login/process', to: 'site#index'
 
   get 'users', to: 'site#index'
   get 'users/new', to: 'site#index'
