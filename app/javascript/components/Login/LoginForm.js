@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateBed } from '../helpers/helpers';
 import { Link } from 'react-router-dom';
-import './Login/Login.css';
+import './Login.css';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -14,23 +13,38 @@ class LoginForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { bed } = this.state;
-    const errors = validateBed(bed);
-  
-    if (!isEmptyObject(errors)) {
-      this.setState({ errors });
-    } else {
-      const { onSubmit } = this.props;
-      onSubmit(bed);
-    }
+    const { user } = this.state;
+    const { onSubmit } = this.props;
+    onSubmit(user);
+  }
+
+  componentWillReceiveProps({ user }) {
+    this.setState({ user });
+  }  
+
+  updateUser(key, value) {
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        [key]: value,
+      },
+    }));
   }
 
   isEmptyObject(obj) {
     return Object.keys(obj).length === 0;
+  }
+
+  handleInputChange(user) {
+    const { target } = user;
+    const { name } = target;
+    const value = target.value;
+    this.updateUser(name, value);
   }
 
   renderErrors() {
@@ -71,6 +85,7 @@ class LoginForm extends React.Component {
                   id="login"
                   name="login"
                   value={user.login}
+                  onChange={this.handleInputChange}
                 />
               </label>
             </div>
@@ -82,6 +97,7 @@ class LoginForm extends React.Component {
                   id="password"
                   name="password"
                   value={user.password}
+                  onChange={this.handleInputChange}
                 />
               </label>
             </div>

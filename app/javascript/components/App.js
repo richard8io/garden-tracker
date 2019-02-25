@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { Alert } from '../helpers/notifications';
 import Header from './Header';
-import Login from './Login';
+import Login from './Login/Login';
 import Users from './Users';
 import Beds from './Beds';
 import Sectors from './Sectors';

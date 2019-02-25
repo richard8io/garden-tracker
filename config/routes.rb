@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   get 'sectors/:id/edit', to: 'site#index'
 
   namespace :api do
-    resources :users, only: %i[index show create destroy update]
+    resources :users, only: %i[index show create destroy update process_login] do
+      member do
+        post "process_login"
+      end
+    end
     resources :beds, only: %i[index show create destroy update]
     resources :sectors, only: %i[index show create destroy update]
   end

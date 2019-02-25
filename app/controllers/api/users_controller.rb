@@ -23,6 +23,11 @@ class Api::UsersController < ApplicationController
     respond_with User, json: user
   end
 
+  def process_login
+    Rails.logger.info "p"*100
+    respond_with :api, User.find(params[:id])
+  end
+
   private
 
   def user_params
