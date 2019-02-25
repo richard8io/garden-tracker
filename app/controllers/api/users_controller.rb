@@ -23,9 +23,10 @@ class Api::UsersController < ApplicationController
     respond_with User, json: user
   end
 
+  # TODO: We'll obviously want to implement real authentication at some point. Hash passwords.
   def process_login
-    Rails.logger.info "p"*100
-    respond_with :api, User.find(params[:id])
+    user = User.where(login: params[:user][:login], password: params[:user][:password]).first
+    respond_with :api, json:!user.nil?
   end
 
   private
