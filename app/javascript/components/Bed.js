@@ -26,8 +26,8 @@ class Sectors extends React.Component {
     if (sectors == null) return null;
 
     var rows = [];
-    {this.state.sectors.map((item, key) =>
-      rows.push(<div className="box" key={item.id}>{item.id}</div>)
+    {this.state.sectors.map((sector, key) =>
+      rows.push(<Link to={`/sectors/${sector.id}`} key={sector.id}><div className="box" key={sector.id}>{sector.id}</div></Link>)
     )}
     return rows;
   }
