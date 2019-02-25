@@ -2,13 +2,15 @@ class Api::SectorsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Sector.order(created_at: :DESC)
+    if params[:bed_id]
+      respond_with Sector.where(bed_id:params[:bed_id]).order(created_at: :ASC)
+    else
+      respond_with Sector.order(created_at: :ASC)
+    end
   end
 
   def show
-    respond_with Sector.where(bed_id:params[:bed_id], column:params[:column], row:params[:column]).first
-    # respond_with Sector.find(params[:id])
-    # respond_with Sector.find(1)
+    respond_with Sector.find(params[:id])
   end
 
   def create
