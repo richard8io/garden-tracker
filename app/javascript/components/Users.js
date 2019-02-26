@@ -8,6 +8,7 @@ import { Switch } from 'react-router-dom';
 import UserForm from './UserForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
+import TopNavigation from './Layout/TopNavigation';
 
 class Users extends React.Component {
   constructor(props) {
@@ -88,6 +89,7 @@ class Users extends React.Component {
 
     return (
       <div>
+        <TopNavigation />
         <div className="grid">
           <UserList users={users} activeId={Number(userId)} />
           <Switch>

@@ -34,6 +34,41 @@ header h1, header h1 a{
 header h1 a:hover {
   text-decoration: underline;
 }
+
+/* Navigation ------------------------------ */
+.top-navigation {
+  background: #303E4D;
+  height: 54px;
+  width: 100%;
+}
+
+.top-navigation a{
+  display: inline-block;
+  font-family: "Maven Pro";
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
+  border: solid 1px white;
+  padding: 3px 4%;
+  text-decoration: none;
+}
+
+.navigation-wrapper {
+  display: grid;
+  grid-template-columns: 30% 60% 10%;
+  grid-gap: 10px;
+  background-color: none;
+  color: #444;
+}
+
+.navigation-box {
+  background-color: none;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 150%;
+}
+
 /* Grid ------------------------------------ */
 .grid {
   display: grid;

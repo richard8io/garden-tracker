@@ -8,6 +8,7 @@ import { Switch } from 'react-router-dom';
 import BedForm from './BedForm';
 import { success } from '../helpers/notifications';
 import { handleAjaxError } from '../helpers/helpers';
+import TopNavigation from './Layout/TopNavigation';
 
 class Beds extends React.Component {
   constructor(props) {
@@ -88,6 +89,7 @@ class Beds extends React.Component {
 
     return (
       <div>
+        <TopNavigation />
         <div className="grid">
           <BedList beds={beds} activeId={Number(bedId)} />
           <Switch>
