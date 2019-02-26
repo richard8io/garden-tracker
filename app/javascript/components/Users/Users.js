@@ -2,13 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import UserList from './UserList';
 import PropTypes from 'prop-types';
-import PropsRoute from './PropsRoute';
+import PropsRoute from '../PropsRoute';
 import User from './User';
 import { Switch } from 'react-router-dom';
 import UserForm from './UserForm';
-import { success } from '../helpers/notifications';
-import { handleAjaxError } from '../helpers/helpers';
-import TopNavigation from './Layout/TopNavigation';
+import { success } from '../../helpers/notifications';
+import { handleAjaxError } from '../../helpers/helpers';
+import TopNavigation from '../Layout/TopNavigation';
 
 class Users extends React.Component {
   constructor(props) {

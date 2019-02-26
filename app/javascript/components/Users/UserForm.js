@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateUser } from '../helpers/helpers';
+import { isEmptyObject, validateUser } from '../../helpers/helpers';
 import { Link } from 'react-router-dom';
 import UserNotFound from './UserNotFound';
 

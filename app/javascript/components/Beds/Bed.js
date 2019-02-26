@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BedNotFound from './BedNotFound';
-import { handleAjaxError } from '../helpers/helpers';
+import { handleAjaxError } from '../../helpers/helpers';
 
 class Sectors extends React.Component {
   constructor(props) {

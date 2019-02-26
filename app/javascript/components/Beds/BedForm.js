@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateBed } from '../helpers/helpers';
+import { isEmptyObject, validateBed } from '../../helpers/helpers';
 import { Link } from 'react-router-dom';
 import BedNotFound from './BedNotFound';
 
