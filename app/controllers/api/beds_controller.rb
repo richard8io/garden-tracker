@@ -14,6 +14,10 @@ class Api::BedsController < ApplicationController
   end
 
   def destroy
+    # TODO: Add the database references that will handle deletions the correct way.
+    Sector.where(bed_id: params[:id]).all.each do |sector|
+      sector.destroy
+    end
     respond_with Bed.destroy(params[:id])
   end
 
