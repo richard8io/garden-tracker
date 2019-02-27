@@ -7,6 +7,7 @@ import { handleAjaxError } from '../../helpers/helpers';
 import Clock from '../Clock';
 import { isEmptyObject, validateBed } from '../../helpers/helpers';
 import Sectors from '../Sectors';
+import SectorForm from '../Sectors/SectorForm';
 
 class Bed extends React.Component {
   constructor(props) {
@@ -14,10 +15,12 @@ class Bed extends React.Component {
 
     this.state = {
       bed: null,
+      activeSector: null,
       errors: {},
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleSectorClick = this.handleSectorClick.bind(this);
   }
 
   componentWillReceiveProps({ bed }) {
@@ -38,11 +41,19 @@ class Bed extends React.Component {
     }
   }
 
-  // TODO: 1.) Pass the above handler to the Sectors component below. Then when a sector is clicked it will send the call up here and we can load the SectorForm.
-  // TODO: 2.) Then, we will need a method for triggering the sector form to be displayed below:
+  handleSectorClick(id) {
+    // TODO: Use the API to load a real record.
+    const sector = {
+      name: 'Skip',
+      row: id,
+      column: id
+    };
+
+    this.setState({activeSector: sector});
+  }
 
   render() {
-    const { bed } = this.state;
+    const { bed, activeSector } = this.state;
     const { path } = this.props;
 
     if (!bed) return <BedNotFound />;
@@ -81,10 +92,10 @@ class Bed extends React.Component {
             <button className="delete" type="button" onClick={this.handleClick}>
              Test
             </button>
-            <Sectors bed={bed} bedID={bed.id} />
+            <Sectors bed={bed} bedID={bed.id} onClick={this.handleSectorClick} />
           </div>
           <div className="bed-box">
-            <h3>{stamp.date.toLocaleTimeString()}.</h3>
+            <SectorForm sector={activeSector} />
           </div>
         </div>
       </div>
@@ -97,8 +108,8 @@ Bed.propTypes = {
   onDelete: PropTypes.func.isRequired
 };
 
-// Bed.defaultProps = {
-//   bed: undefined
-// };
+Bed.defaultProps = {
+  bed: undefined
+};
 
 export default Bed;

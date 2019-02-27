@@ -83,16 +83,6 @@ class Beds extends React.Component {
     }
   }
 
-  renderSectorForm(bed) {
-    if (bed == null) return null;
-
-    return (
-      <div className="bed-box">
-        <SectorForm />
-      </div>
-    );
-  }
-
   render() {
     const { beds } = this.state;
     if (beds === null) return null;
@@ -122,7 +112,6 @@ class Beds extends React.Component {
               onDelete={this.deleteBed}
             />
           </Switch>
-          {/* {this.renderSectorForm(bed)} */}
         </div>
       </div>
     );

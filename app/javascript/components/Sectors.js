@@ -13,6 +13,13 @@ class Sectors extends React.Component {
     this.state = {
       sectors: null
     };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(sectorID, e) {  
+    const { onClick } = this.props;
+    onClick(sectorID);
   }
 
   loadSectorsFromAPI() {
@@ -40,7 +47,7 @@ class Sectors extends React.Component {
 
     var rows = [];
     {this.state.sectors.map((sector, key) =>
-      rows.push(<Link to={`/sectors/${sector.id}`} key={sector.id}><div className="box" key={sector.id}>{sector.id}</div></Link>)
+      rows.push(<Link to="#" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className="box" key={sector.id}>{sector.id}</div></Link>)
     )}
     return rows;
   }
@@ -60,6 +67,7 @@ class Sectors extends React.Component {
 // Reference = https://flaviocopes.com/react-proptypes/
 Sectors.propTypes = {
   bedID: PropTypes.number,
+  onClick: PropTypes.func.isRequired,
   bed: PropTypes.shape()
 };
 

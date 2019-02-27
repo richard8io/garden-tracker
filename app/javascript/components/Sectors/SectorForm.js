@@ -72,18 +72,18 @@ class SectorForm extends React.Component {
     );
   }
 
-  render() {
-    const { sector } = this.state;
-    const { path } = this.props;
+  render() {   
+    const { path, sector } = this.props;
 
-    // if (!sector.id && path === '/sectors/:id/edit') return <BedNotFound />;
-
-    const cancelURL = sector.id ? `/sectors/${sector.id}` : '/sectors';
-    const title = sector.id ? `${sector.name}` : 'New Name';
+    if (sector === null) {
+      return (
+        <h1>not found</h1>
+      );
+    }
 
     return (
-      <div id="sector-form">
-        <h2>{title}</h2>
+      <div>
+        <h2>{sector.name}</h2>
         {this.renderErrors()}
         <form className="eventForm" onSubmit={this.handleSubmit}>
           <div>
