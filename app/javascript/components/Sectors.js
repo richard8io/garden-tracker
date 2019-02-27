@@ -1,128 +1,71 @@
 import React from 'react';
 import axios from 'axios';
-// import BedList from './BedList';
 import PropTypes from 'prop-types';
-import PropsRoute from './PropsRoute';
-import Sector from './Sector';
-import { Switch } from 'react-router-dom';
-// import BedForm from './BedForm';
-import { success } from '../helpers/notifications';
+import TopNavigation from './Layout/TopNavigation';
 import { handleAjaxError } from '../helpers/helpers';
+import { Link } from 'react-router-dom';
+import Bed from './Beds/Bed'
 
 class Sectors extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sectors: null,
+      sectors: null
     };
-
-    // this.addBed = this.addBed.bind(this);
-    // this.deleteBed = this.deleteBed.bind(this);
-    // this.updateBed = this.updateBed.bind(this);
   }
 
-  componentDidMount() {
+  loadSectorsFromAPI() {
+    const { bed } = this.props;
     axios
-      .get('/api/sectors.json')
+      .get(`/api/sectors.json?bed_id=${bed.id}`)
       .then(response => this.setState({ sectors: response.data }))
       .catch(handleAjaxError);
   }
 
-  // addBed(newBed) {
-  //   axios
-  //     .post('/api/beds.json', newBed)
-  //     .then((response) => {
-  //       success('Bed Added!');
-  //       const savedBed = response.data;
-  //       this.setState(prevState => ({
-  //         beds: [...prevState.beds, savedBed],
-  //       }));
-  //       const { history } = this.props;
-  //       history.push(`/beds/${savedBed.id}`);
-  //     })
-  //     .catch(handleAjaxError);
-  // }
+  componentDidMount() {
+    this.loadSectorsFromAPI();
+  }
 
-  // updateBed(updatedBed) {
-  //   axios
-  //     .put(`/api/beds/${updatedBed.id}.json`, updatedBed)
-  //     .then(() => {
-  //       success('Bed updated');
-  //       const { beds } = this.state;
-  //       const idx = beds.findIndex(bed => bed.id === updatedBed.id);
-  //       beds[idx] = updatedBed;
-  //       const { history } = this.props;
-  //       history.push(`/beds/${updatedBed.id}`);
-  //       this.setState({ beds });
-  //     })
-  //     .catch(handleAjaxError);
-  // }
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.bedID !== prevProps.bedID) {
+      this.loadSectorsFromAPI();
+    }
+  }
 
-  // deleteBed(bedId) {
-  //   const sure = window.confirm('Are you sure?');
-  //   if (sure) {
-  //     axios
-  //       .delete(`/api/beds/${bedId}.json`)
-  //       .then((response) => {
-  //         if (response.status === 204) {
-  //           success('Bed deleted');
-  //           const { history } = this.props;
-  //           history.push('/beds');
-
-  //           const { beds } = this.state;
-  //           this.setState({ beds: beds.filter(bed => bed.id !== bedId) });
-  //         }
-  //       })
-  //       .catch(handleAjaxError);
-  //   }
-  // }
-
-  render() {
+  renderBoxes(bed) {
     const { sectors } = this.state;
-    if (sectors === null) return null;
+    if (sectors == null) return null;
 
-    const { match } = this.props;
-    const sectorId = match.params.id;
-    const sector = sectors.find(e => e.id === Number(sectorId));
+    var rows = [];
+    {this.state.sectors.map((sector, key) =>
+      rows.push(<Link to={`/sectors/${sector.id}`} key={sector.id}><div className="box" key={sector.id}>{sector.id}</div></Link>)
+    )}
+    return rows;
+  }
 
+  render () {
+    const { bed } = this.props;
+    if (bed === null) return null;
+    
     return (
-      <div>
-        <div className="grid">
-          <h3>test</h3>
-          <h3>sector_id={sectorId}</h3>
-          <Sector sector={sector} />
-          {/* <BedList beds={sectors} activeId={Number(sectorId)} />
-          <Switch>
-            <PropsRoute path="/beds/new" component={BedForm} onSubmit={this.addBed} />
-            <PropsRoute
-              exact
-              path="/beds/:id/edit"
-              component={BedForm}
-              bed={bed}
-              onSubmit={this.updateBed}
-            />
-            <PropsRoute
-              path="/beds/:id"
-              component={Bed}
-              bed={bed}
-              onDelete={this.deleteBed}
-            />
-          </Switch> */}
-        </div>
+      <div className={`wrapper${bed.rows}`}>
+        {this.renderBoxes(bed)}
       </div>
     );
   }
 }
 
-
+// Reference = https://flaviocopes.com/react-proptypes/
 Sectors.propTypes = {
-  match: PropTypes.shape(),
-  history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+  bedID: PropTypes.number,
+  bed: PropTypes.shape()
 };
 
 Sectors.defaultProps = {
-  match: undefined,
+  bed: undefined,
+  bedID: undefined
 };
 
 export default Sectors;

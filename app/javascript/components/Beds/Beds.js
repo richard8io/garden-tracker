@@ -10,12 +10,16 @@ import { success } from '../../helpers/notifications';
 import { handleAjaxError } from '../../helpers/helpers';
 import TopNavigation from '../Layout/TopNavigation';
 
+import './Beds.css';
+import SectorForm from '../Sectors/SectorForm';
+import Sectors from '../Sectors';
+
 class Beds extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      beds: null,
+      beds: [],
     };
 
     this.addBed = this.addBed.bind(this);
@@ -79,6 +83,16 @@ class Beds extends React.Component {
     }
   }
 
+  renderSectorForm(bed) {
+    if (bed == null) return null;
+
+    return (
+      <div className="bed-box">
+        <SectorForm />
+      </div>
+    );
+  }
+
   render() {
     const { beds } = this.state;
     if (beds === null) return null;
@@ -108,6 +122,7 @@ class Beds extends React.Component {
               onDelete={this.deleteBed}
             />
           </Switch>
+          {/* {this.renderSectorForm(bed)} */}
         </div>
       </div>
     );

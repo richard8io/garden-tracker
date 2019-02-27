@@ -4,95 +4,100 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BedNotFound from './BedNotFound';
 import { handleAjaxError } from '../../helpers/helpers';
+import Clock from '../Clock';
+import { isEmptyObject, validateBed } from '../../helpers/helpers';
+import Sectors from '../Sectors';
 
-class Sectors extends React.Component {
+class Bed extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sectors: null,
+      bed: null,
+      errors: {},
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    axios
-      .get(`/api/sectors.json?bed_id=${16}`)
-      .then(response => this.setState({ sectors: response.data }))
-      .catch(handleAjaxError);
+  componentWillReceiveProps({ bed }) {
+    this.setState({ bed });
+  }  
+
+  handleClick(e) {
+    e.preventDefault();
+    const { bed } = this.state;
+    const errors = validateBed(bed);
+  
+    if (!isEmptyObject(errors)) {
+      this.setState({ errors });
+    } else {
+      // const { onSubmit } = this.props;
+      // onSubmit(bed);
+      this.setState({ bed });
+    }
   }
 
-  renderBoxes() {
-    const { sectors } = this.state;
-    if (sectors == null) return null;
+  // TODO: 1.) Pass the above handler to the Sectors component below. Then when a sector is clicked it will send the call up here and we can load the SectorForm.
+  // TODO: 2.) Then, we will need a method for triggering the sector form to be displayed below:
 
-    var rows = [];
-    {this.state.sectors.map((sector, key) =>
-      rows.push(<Link to={`/sectors/${sector.id}`} key={sector.id}><div className="box" key={sector.id}>{sector.id}</div></Link>)
-    )}
-    return rows;
-  }
+  render() {
+    const { bed } = this.state;
+    const { path } = this.props;
 
-  render () {
-    const { bed } = this.props;
-    
-    if (bed === null) return null;
-    
+    if (!bed) return <BedNotFound />;
+    if (!bed.id && path === '/beds/:id/edit') return <BedNotFound />;
+
+    const stamp = {date: new Date()};
+  
     return (
-      <div className={`wrapper${bed.rows}`}>
-        {this.renderBoxes()}
+      <div className="eventContainer">
+        <div className="beds-wrapper">
+          <div className="bed-box">
+            <b>{stamp.date.toLocaleTimeString()}.</b>
+            <h2>
+              <Link to={`/beds/${bed.id}/edit`}>Edit</Link>
+              <button className="delete" type="button" onClick={() => onDelete(bed.id)}>
+                Delete
+              </button>
+            </h2>
+            <ul>
+              <li>
+                <strong>Name:</strong>
+                {' '}
+                {bed.name}
+              </li>
+              <li>
+                <strong>Rows:</strong>
+                {' '}
+                {bed.rows}
+              </li>
+              <li>
+                <strong>Columns:</strong>
+                {' '}
+                {bed.columns}
+              </li>
+            </ul>
+            <button className="delete" type="button" onClick={this.handleClick}>
+             Test
+            </button>
+            <Sectors bed={bed} bedID={bed.id} />
+          </div>
+          <div className="bed-box">
+            <h3>{stamp.date.toLocaleTimeString()}.</h3>
+          </div>
+        </div>
       </div>
     );
   }
 }
-
-const Bed = ({ bed, onDelete }) => {
-  if (!bed) return <BedNotFound />;
-
-  return (
-    <div className="eventContainer">
-      <h2>
-        {bed.name}
-        <Link to={`/beds/${bed.id}/edit`}>Edit</Link>
-        <button className="delete" type="button" onClick={() => onDelete(bed.id)}>
-          Delete
-        </button>
-      </h2>
-      <ul>
-        <li>
-          <strong>Name:</strong>
-          {' '}
-          {bed.name}
-        </li>
-        <li>
-          <strong>Rows:</strong>
-          {' '}
-          {bed.rows}
-        </li>
-        <li>
-          <strong>Columns:</strong>
-          {' '}
-          {bed.columns}
-        </li>
-      </ul>
-      <Sectors bed={bed} />
-    </div>
-  );
-};
 
 Bed.propTypes = {
   bed: PropTypes.shape(),
   onDelete: PropTypes.func.isRequired
 };
 
-Bed.defaultProps = {
-  bed: undefined
-};
-
-Sectors.propTypes = {
-  bed: PropTypes.shape()
-};
-
-// Sectors.defaultProps = {
+// Bed.defaultProps = {
 //   bed: undefined
 // };
 

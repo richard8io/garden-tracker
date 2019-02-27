@@ -69,12 +69,12 @@ class BedList extends React.Component {
 
 BedList.propTypes = {
   activeId: PropTypes.number,
-  userss: PropTypes.arrayOf(PropTypes.object),
+  beds: PropTypes.arrayOf(PropTypes.object),
 };
 
 BedList.defaultProps = {
   activeId: undefined,
-  users: [],
+  beds: [],
 };
 
 export default BedList;
