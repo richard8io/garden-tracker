@@ -35,21 +35,15 @@ class Bed extends React.Component {
     if (!isEmptyObject(errors)) {
       this.setState({ errors });
     } else {
-      // const { onSubmit } = this.props;
-      // onSubmit(bed);
       this.setState({ bed });
     }
   }
 
   handleSectorClick(id) {
-    // TODO: Use the API to load a real record.
-    const sector = {
-      name: 'Skip',
-      row: id,
-      column: id
-    };
-
-    this.setState({activeSector: sector});
+    axios
+      .get(`/api/sectors/${id}.json`)
+      .then(response => this.setState({ activeSector: response.data }))
+      .catch(handleAjaxError);
   }
 
   render() {
