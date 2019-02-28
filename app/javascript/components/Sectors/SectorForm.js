@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmptyObject, validateBed } from '../../helpers/helpers';
+import { isEmptyObject, validateSector } from '../../helpers/helpers';
 import { Link } from 'react-router-dom';
+import SectorNotFound from './SectorNotFound';
 
 class SectorForm extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class SectorForm extends React.Component {
     this.setState({ sector });
   }  
 
-  updateBed(key, value) {
+  updateSector(key, value) {
     this.setState(prevState => ({
       sector: {
         ...prevState.sector,
@@ -75,11 +76,7 @@ class SectorForm extends React.Component {
   render() {   
     const { path, sector } = this.props;
 
-    if (sector === null) {
-      return (
-        <h1>not found</h1>
-      );
-    }
+    if (sector === null) return <SectorNotFound />;
 
     return (
       <div>

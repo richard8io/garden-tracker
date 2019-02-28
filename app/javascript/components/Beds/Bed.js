@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BedNotFound from './BedNotFound';
+import { success } from '../../helpers/notifications';
 import { handleAjaxError } from '../../helpers/helpers';
 import Clock from '../Clock';
 import { isEmptyObject, validateBed } from '../../helpers/helpers';
@@ -21,6 +22,23 @@ class Bed extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSectorClick = this.handleSectorClick.bind(this);
+    this.updateSector = this.updateSector.bind(this);
+  }
+
+  updateSector(updatedSector) {
+    console.log(JSON.stringify(updatedSector));
+    axios
+      .put(`/api/sectors/${updatedSector.id}.json`, updatedSector)
+      .then(() => {
+        success('Sector updated');
+        // const { sectors } = this.state;
+        // const idx = sectors.findIndex(sector => sector.id === updatedSector.id);
+        // sectors[idx] = updatedSector;
+        // const { history } = this.props;
+        // history.push(`/sectors/${updatedSector.id}`);
+        // this.setState({ sectors });
+      })
+      .catch(handleAjaxError);
   }
 
   componentWillReceiveProps({ bed }) {
@@ -89,7 +107,7 @@ class Bed extends React.Component {
             <Sectors bed={bed} bedID={bed.id} onClick={this.handleSectorClick} />
           </div>
           <div className="bed-box">
-            <SectorForm sector={activeSector} />
+            <SectorForm sector={activeSector} onSubmit={this.updateSector}  />
           </div>
         </div>
       </div>

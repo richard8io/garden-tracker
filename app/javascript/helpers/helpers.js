@@ -28,6 +28,20 @@ export const validateBed = (bed) => {
   return errors;
 }
 
+export const validateSector = (sector) => {
+  const errors = {};
+
+  if (sector.row === null) {
+    errors.name = 'You must enter a row';
+  }
+
+  if (sector.column === null) {
+    errors.name = 'You must enter a column';
+  }
+
+  return errors;
+}
+
 export const formatDate = (d) => {
   const YYYY = d.getFullYear();
   const MM = `0${d.getMonth() + 1}`.slice(-2);
