@@ -1,5 +1,5 @@
 import React from 'react';
 
-const SectorNotFound = () => <p>Sector not found!</p>;
+const SectorNotFound = () => <p></p>;
 
 export default SectorNotFound;
