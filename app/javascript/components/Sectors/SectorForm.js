@@ -74,55 +74,72 @@ class SectorForm extends React.Component {
   }
 
   render() {   
-    const { path, sector } = this.props;
+    const { sector } = this.state;
+    const { path } = this.props;
 
     if (sector === null) return <SectorNotFound />;
+    
+    if (sector.name == null) sector.name = "";
+    if (sector.notes == null) sector.notes = "";
 
     return (
       <div>
-        <h2>{sector.name}</h2>
-        {this.renderErrors()}
-        <form className="eventForm" onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor="name">
-              <strong>Name:</strong>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                onChange={this.handleInputChange}
-                value={sector.name}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="row">
-              <strong>Row:</strong>
-              <input
-                type="text"
-                id="row"
-                name="row"
-                onChange={this.handleInputChange}
-                value={sector.row}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="column">
-              <strong>Column:</strong>
-              <input
-                type="text"
-                id="column"
-                name="column"
-                onChange={this.handleInputChange}
-                value={sector.column}
-              />
-            </label>
-          </div>
-          <div className="form-actions">
-            <button type="submit">Enter</button>
-          </div>
-        </form>
+        <section className="eventList">
+          <h2>{sector.name}</h2>
+          {this.renderErrors()}
+          <form className="eventForm" onSubmit={this.handleSubmit}>
+            <div>
+              <label htmlFor="name">
+                <strong>Name:</strong>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  onChange={this.handleInputChange}
+                  value={sector.name}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="row">
+                <strong>Row:</strong>
+                <input
+                  type="text"
+                  id="row"
+                  name="row"
+                  onChange={this.handleInputChange}
+                  value={sector.row}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="column">
+                <strong>Column:</strong>
+                <input
+                  type="text"
+                  id="column"
+                  name="column"
+                  onChange={this.handleInputChange}
+                  value={sector.column}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="column">
+                <strong>Notes:</strong>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  onChange={this.handleInputChange}
+                  value={sector.notes}
+                />
+              </label>
+            </div>
+            <div className="form-actions">
+              <button type="submit">Enter</button>
+            </div>
+          </form>
+        </section>
       </div>
     );
   } 

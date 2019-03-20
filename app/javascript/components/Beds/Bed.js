@@ -20,7 +20,6 @@ class Bed extends React.Component {
       errors: {},
     };
 
-    this.handleClick = this.handleClick.bind(this);
     this.handleSectorClick = this.handleSectorClick.bind(this);
     this.updateSector = this.updateSector.bind(this);
   }
@@ -44,18 +43,6 @@ class Bed extends React.Component {
   componentWillReceiveProps({ bed }) {
     this.setState({ bed });
   }  
-
-  handleClick(e) {
-    e.preventDefault();
-    const { bed } = this.state;
-    const errors = validateBed(bed);
-  
-    if (!isEmptyObject(errors)) {
-      this.setState({ errors });
-    } else {
-      this.setState({ bed });
-    }
-  }
 
   handleSectorClick(id) {
     axios
@@ -101,9 +88,6 @@ class Bed extends React.Component {
                 {bed.columns}
               </li>
             </ul>
-            <button className="delete" type="button" onClick={this.handleClick}>
-             Test
-            </button>
             <Sectors bed={bed} bedID={bed.id} onClick={this.handleSectorClick} />
           </div>
           <div className="bed-box">

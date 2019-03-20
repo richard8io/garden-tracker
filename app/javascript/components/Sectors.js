@@ -47,7 +47,7 @@ class Sectors extends React.Component {
 
     var rows = [];
     {this.state.sectors.map((sector, key) =>
-      rows.push(<Link to="#" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className="box" key={sector.id}>{sector.id}</div></Link>)
+      rows.push(<Link to="#" className="sectorLink" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className="box" key={sector.id}>{sector.id}:<br/>{sector.name}</div></Link>)
     )}
     return rows;
   }

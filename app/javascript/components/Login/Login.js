@@ -42,7 +42,6 @@ class Login extends React.Component {
     return (
       <div>
         <Switch>
-          {/* <Route path="/login/new" component={LoginForm} onSubmit={this.logIn} /> */}
           <PropsRoute path="/login/new" component={LoginForm} onSubmit={this.processLogin} />
         </Switch>
       </div>
