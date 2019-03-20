@@ -23,6 +23,7 @@ class Sectors extends React.Component {
   }
 
   loadSectorsFromAPI() {
+    console.log("loadSectorsFromAPI()");
     const { bed } = this.props;
     axios
       .get(`/api/sectors.json?bed_id=${bed.id}`)
@@ -41,13 +42,26 @@ class Sectors extends React.Component {
     }
   }
 
+  constructBox(sector, activeSector) {
+    if (activeSector !== null) {
+      if (activeSector.id === sector.id) {
+        if (activeSector.name !== sector.name) {
+          this.loadSectorsFromAPI();
+        }
+      }
+    }
+    return <Link to="#" className="sectorLink" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className="box" key={sector.id}>{sector.id}:<br/>{sector.name}</div></Link>
+  }
+
   renderBoxes(bed) {
     const { sectors } = this.state;
     if (sectors == null) return null;
 
+    const { activeSector } = this.props;
+
     var rows = [];
     {this.state.sectors.map((sector, key) =>
-      rows.push(<Link to="#" className="sectorLink" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className="box" key={sector.id}>{sector.id}:<br/>{sector.name}</div></Link>)
+      rows.push(this.constructBox(sector, activeSector))
     )}
     return rows;
   }
@@ -68,12 +82,14 @@ class Sectors extends React.Component {
 Sectors.propTypes = {
   bedID: PropTypes.number,
   onClick: PropTypes.func.isRequired,
-  bed: PropTypes.shape()
+  bed: PropTypes.shape(),
+  activeSector: PropTypes.shape()
 };
 
 Sectors.defaultProps = {
   bed: undefined,
-  bedID: undefined
+  bedID: undefined,
+  forceReload: false
 };
 
 export default Sectors;

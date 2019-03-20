@@ -82,9 +82,12 @@ class SectorForm extends React.Component {
     if (sector.name == null) sector.name = "";
     if (sector.notes == null) sector.notes = "";
 
+    const stamp = {date: new Date()};
+
     return (
       <div>
         <section className="eventList">
+          <b>{stamp.date.toLocaleTimeString()}.</b>
           <h2>{sector.name}</h2>
           {this.renderErrors()}
           <form className="eventForm" onSubmit={this.handleSubmit}>

@@ -30,12 +30,8 @@ class Bed extends React.Component {
       .put(`/api/sectors/${updatedSector.id}.json`, updatedSector)
       .then(() => {
         success('Sector updated');
-        // const { sectors } = this.state;
-        // const idx = sectors.findIndex(sector => sector.id === updatedSector.id);
-        // sectors[idx] = updatedSector;
-        // const { history } = this.props;
-        // history.push(`/sectors/${updatedSector.id}`);
-        // this.setState({ sectors });
+        
+        this.handleSectorClick(updatedSector.id);
       })
       .catch(handleAjaxError);
   }
@@ -52,6 +48,8 @@ class Bed extends React.Component {
   }
 
   render() {
+    console.log("Bed.render()");
+
     const { bed, activeSector } = this.state;
     const { path } = this.props;
 
@@ -88,7 +86,7 @@ class Bed extends React.Component {
                 {bed.columns}
               </li>
             </ul>
-            <Sectors bed={bed} bedID={bed.id} onClick={this.handleSectorClick} />
+            <Sectors bed={bed} bedID={bed.id} onClick={this.handleSectorClick} activeSector={activeSector} />
           </div>
           <div className="bed-box">
             <SectorForm sector={activeSector} onSubmit={this.updateSector}  />
