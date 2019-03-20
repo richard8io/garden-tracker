@@ -42,15 +42,23 @@ class Sectors extends React.Component {
     }
   }
 
+  // TODO: This could probably be re-factored.
   constructBox(sector, activeSector) {
     if (activeSector !== null) {
       if (activeSector.id === sector.id) {
+        if (activeSector.name === null) { activeSector.name = ""; }
+        if (sector.name === null) { sector.name = ""; }
         if (activeSector.name !== sector.name) {
           this.loadSectorsFromAPI();
         }
       }
     }
-    return <Link to="#" className="sectorLink" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className="box" key={sector.id}>{sector.id}:<br/>{sector.name}</div></Link>
+    var className = (sector.name !== null && sector.name.length > 1) ? 'filledBox' : 'box';
+    if (activeSector !== null && activeSector.id === sector.id) {
+      className = 'hotBox';
+    }
+    
+    return <Link to="#" className="sectorLink" onClick={this.handleClick.bind(this, sector.id)} key={sector.id}><div className={className} key={sector.id}>{sector.name}</div></Link>
   }
 
   renderBoxes(bed) {

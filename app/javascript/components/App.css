@@ -95,11 +95,35 @@ header h1 a:hover {
   color: #171D22;
   border-radius: 5px;
   padding: 20px;
-  font-size: 80%;
+  font-size: 60%;
   border: solid 1px #171D22;
   padding: 5px;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
+}
+
+.filledBox {
+  background-color: #14B5AB;
+  color: #171D22;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 60%;
+  border: solid 1px #171D22;
+  padding: 5px;
+  width: 90px;
+  height: 90px;
+}
+
+.hotBox {
+  background-color: #236fff;
+  color: #171D22;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 60%;
+  border: solid 1px #171D22;
+  padding: 5px;
+  width: 90px;
+  height: 90px;
 }
 
 .box:nth-child(even) {
