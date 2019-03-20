@@ -107,6 +107,7 @@ class SectorForm extends React.Component {
                   type="text"
                   id="row"
                   name="row"
+                  disabled={true}
                   onChange={this.handleInputChange}
                   value={sector.row}
                 />
@@ -119,6 +120,7 @@ class SectorForm extends React.Component {
                   type="text"
                   id="column"
                   name="column"
+                  disabled={true}
                   onChange={this.handleInputChange}
                   value={sector.column}
                 />
@@ -130,6 +132,7 @@ class SectorForm extends React.Component {
                 <textarea
                   id="notes"
                   name="notes"
+                  rows="8"
                   onChange={this.handleInputChange}
                   value={sector.notes}
                 />
