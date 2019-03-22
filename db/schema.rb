@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_180533) do
+ActiveRecord::Schema.define(version: 2019_03_22_232202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2019_02_24_180533) do
     t.bigint "bed_id"
     t.integer "column"
     t.integer "row"
+    t.date "plant_date"
+    t.date "harvest_date"
     t.index ["bed_id"], name: "index_sectors_on_bed_id"
   end
 

@@ -36,7 +36,9 @@ class Api::SectorsController < ApplicationController
       :updated_at,
       :name,
       :notes,
-      :active
+      :active,
+      :plant_date,
+      :harvest_date
     )
   end
 end

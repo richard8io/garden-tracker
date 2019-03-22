@@ -52,7 +52,7 @@ class SectorForm extends React.Component {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.updateSector(name, value);
-  }  
+  }
 
   renderErrors() {
     const { errors } = this.state;
@@ -81,6 +81,7 @@ class SectorForm extends React.Component {
     
     if (sector.name == null) sector.name = "";
     if (sector.notes == null) sector.notes = "";
+    if (sector.plant_date == null) sector.plant_date = "";
 
     const stamp = {date: new Date()};
 
@@ -100,6 +101,18 @@ class SectorForm extends React.Component {
                   name="name"
                   onChange={this.handleInputChange}
                   value={sector.name}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="plantDate">
+                <strong>Plant Date:</strong>
+                <input
+                  type="text"
+                  id="plant_date"
+                  name="plant_date"
+                  onChange={this.handleInputChange}
+                  value={sector.plant_date}
                 />
               </label>
             </div>
