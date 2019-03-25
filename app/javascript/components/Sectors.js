@@ -23,7 +23,6 @@ class Sectors extends React.Component {
   }
 
   loadSectorsFromAPI() {
-    console.log("loadSectorsFromAPI()");
     const { bed } = this.props;
     axios
       .get(`/api/sectors.json?bed_id=${bed.id}`)

@@ -48,8 +48,6 @@ class Bed extends React.Component {
   }
 
   render() {
-    console.log("Bed.render()");
-
     const { bed, activeSector } = this.state;
     const { path } = this.props;
 
